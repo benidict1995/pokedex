@@ -1,8 +1,12 @@
 package com.benidict.pokedex.feature.details
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -17,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.benidict.model.dto.PokemonDetailsDTO
 import com.benidict.pokedex.component.card.PokemonDetailsCard
 import com.benidict.pokedex.component.layout.MainLayout
+import com.benidict.pokedex.component.list.AbilityList
 import com.benidict.pokedex.state.UiState
 import com.benidict.pokedex.ui.theme.PokedexTheme
 
@@ -49,7 +54,12 @@ fun DetailsScreen(viewModel: DetailsViewModel, pokemonName: String, onBackPresse
 
             }) {
                 if (pokemonDetailsState.name?.isNotEmpty() == true){
-                    PokemonDetailsCard(pokemonDetailsState)
+                    Column(modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        PokemonDetailsCard(pokemonDetailsState)
+                        HorizontalDivider(thickness = 2.dp)
+                        AbilityList(pokemonDetailsState.abilities?: emptyList())
+                    }
                 }
             }
         }

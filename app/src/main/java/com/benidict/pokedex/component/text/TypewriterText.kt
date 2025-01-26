@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -20,7 +21,8 @@ fun TypewriterText(
     text: String,
     mod: Modifier = Modifier.padding(top = 0.dp),
     fontWeight: FontWeight = FontWeight.Normal,
-    fontSize: Int = 13,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    animSpeed: Long = 160L,
     displayDone: @Composable (() -> Unit)?= null
 ) {
     val textList = text.toCharArray()
@@ -32,7 +34,7 @@ fun TypewriterText(
     LaunchedEffect(key1 = text) {
         for (i in textList) {
             textToDisplay += i.toString()
-            delay(160)
+            delay(animSpeed)
         }
     }
 
@@ -40,7 +42,7 @@ fun TypewriterText(
     Text(
         modifier = mod,
         text = textToDisplay,
-        fontSize = fontSize.sp,
+        fontSize = fontSize,
         fontWeight = fontWeight,
     )
 

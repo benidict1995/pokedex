@@ -16,7 +16,7 @@ import com.benidict.pokedex.component.text.TypewriterText
 import java.util.Locale
 
 @Composable
-fun PokemonDetailsCard(pokemonDetailsDTO: PokemonDetailsDTO? = null) {
+fun PokemonDetailsCard(pokemonDetailsDTO: PokemonDetailsDTO? = null, isShow: (Boolean) -> Unit) {
     val name = pokemonDetailsDTO?.name?.capitalize(Locale.US).orEmpty()
     val details = "Height: ${
         pokemonDetailsDTO?.height?.toString().orEmpty()
@@ -27,7 +27,9 @@ fun PokemonDetailsCard(pokemonDetailsDTO: PokemonDetailsDTO? = null) {
         }
         Column(modifier = Modifier.padding(start = 4.dp)) {
             TypewriterText(name, fontWeight = FontWeight.Bold, fontSize = 24) {
-                TypewriterText(details, mod = Modifier.padding(top = 4.dp), fontWeight = FontWeight.Medium, fontSize = 16)
+                TypewriterText(details, mod = Modifier.padding(top = 4.dp), fontWeight = FontWeight.Medium, fontSize = 16) {
+                    isShow(true)
+                }
             }
         }
     }
@@ -37,6 +39,8 @@ fun PokemonDetailsCard(pokemonDetailsDTO: PokemonDetailsDTO? = null) {
 @Composable
 fun PokemonDetailsCardPreview() {
     MaterialTheme {
-        PokemonDetailsCard()
+        PokemonDetailsCard {
+
+        }
     }
 }

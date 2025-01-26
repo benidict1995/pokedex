@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,8 +15,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.benidict.model.dto.PokemonDetailsDTO
@@ -24,10 +27,12 @@ import com.benidict.pokedex.component.layout.MainLayout
 import com.benidict.pokedex.component.list.AbilityList
 import com.benidict.pokedex.state.UiState
 import com.benidict.pokedex.ui.theme.PokedexTheme
+import com.benidict.pokedex.utils.pokemonInformation
 
 @Composable
 fun DetailsScreen(viewModel: DetailsViewModel, pokemonName: String, onBackPressed: () -> Unit) {
     var pokemonDetailsState by remember { mutableStateOf(PokemonDetailsDTO()) }
+    var isDetailsSectionShow by remember { mutableStateOf(false) }
     LaunchedEffect(viewModel) {
         viewModel.loadPokemonDetails(pokemonName)
         viewModel.uiState.collect { state ->
@@ -54,11 +59,16 @@ fun DetailsScreen(viewModel: DetailsViewModel, pokemonName: String, onBackPresse
 
             }) {
                 if (pokemonDetailsState.name?.isNotEmpty() == true){
-                    Column(modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        PokemonDetailsCard(pokemonDetailsState)
-                        HorizontalDivider(thickness = 2.dp)
-                        AbilityList(pokemonDetailsState.abilities?: emptyList())
+                    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        PokemonDetailsCard(pokemonDetailsState) { isShow ->
+                            isDetailsSectionShow = isShow
+                        }
+                        if (isDetailsSectionShow) {
+                            Text(text = pokemonInformation(pokemonDetailsState))
+                            HorizontalDivider(thickness = 2.dp)
+                            Text(text = "ABILITIES", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                            AbilityList(pokemonDetailsState.abilities?: emptyList())
+                        }
                     }
                 }
             }

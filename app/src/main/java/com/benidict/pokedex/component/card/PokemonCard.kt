@@ -1,5 +1,6 @@
 package com.benidict.pokedex.component.card
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,10 +41,11 @@ import java.util.Locale
 
 @Composable
 fun PokemonCard(pokemonDTO: PokemonDetailsDTO, onClick: (PokemonDetailsDTO) -> Unit) {
-    Card(
-        shape = RoundedCornerShape(8.dp),
+    Box(
         modifier = Modifier
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
             .clickable(onClick = {
                 onClick(pokemonDTO)
             })

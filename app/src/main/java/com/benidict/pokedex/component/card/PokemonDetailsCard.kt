@@ -1,6 +1,7 @@
 package com.benidict.pokedex.component.card
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +31,9 @@ fun PokemonDetailsCard(pokemonDetailsDTO: PokemonDetailsDTO? = null, isShow: (Bo
         pokemonDetailsDTO?.height?.toString().orEmpty()
     }\n${stringResource(R.string.weight)} ${pokemonDetailsDTO?.weight?.toString().orEmpty()}"
     Row {
-        Card {
+        Box(
+            modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer)
+        ) {
             PokemonImageProfile(pokemonDetailsDTO?.sprites?.frontDefault.orEmpty())
         }
         Column(modifier = Modifier.padding(start = 4.dp)) {

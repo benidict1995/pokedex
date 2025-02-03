@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -81,7 +82,9 @@ fun DetailsScreen(viewModel: DetailsViewModel, pokemonName: String, onBackPresse
                     if (isDetailsSectionShow) {
                         TypewriterText(
                             pokemonInformation(pokemonDetailsState),
-                            fontWeight = FontWeight.Normal,
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal
+                            ),
                             animSpeed = 50
                         )
                         HorizontalDivider(thickness = 2.dp)

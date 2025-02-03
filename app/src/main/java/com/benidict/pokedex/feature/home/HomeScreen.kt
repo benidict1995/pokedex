@@ -58,7 +58,6 @@ fun HomeScreen(viewModel: HomeViewModel, onChoosePokemon: (String) -> Unit) {
     }
     LaunchedEffect(key1 = isRefreshing) {
         launch(Dispatchers.Main) {
-            showShimmerLoader = true
             pokemons.refresh()
         }
     }
